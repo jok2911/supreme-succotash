@@ -1,0 +1,20 @@
+const formdata = {
+  grant_type:'authorization_code',
+  code: <code>,
+  redirect_uri: '<callback_url>',
+  client_id:'<client_id>',
+  client_secret:'<client_secret>'
+};const params = Object.keys(formdata).map((key) => {
+  return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+}).join('&');fetch('https://notify-bot.line.me/oauth/token', {
+  method: 'POST', // or 'PUT'
+  headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+  body: params
+})
+.then(response => response.json())
+.then(data => {
+  console.log(data.code);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
